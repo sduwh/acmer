@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    加入我们
+{% endblock %}
+{% block css %}
+    <style>
+        figure > img {
+            width: 400px;
+        }
+
+        .team {
+            width: 50%;
+            height: 100%;
+            float: left;
+            padding: 0 30px 0;
+        }
+
+        .team-abstract {
+            margin-bottom: 10px;
+            padding: 0 10px 0;
+        }
+
+        .team-people {
+            width: 50%;
+            float: left;
+            padding: 0 10px 0;
+        }
+
+        .team-develop-history {
+            max-height: 80%;
+            overflow: auto;
+        }
+
+        .join-info figure{
+            margin-right: 20px;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="team">
+        <div class="team-abstract">
+            <h2>团队简介</h2>
+            <p class="mb-0">
+                &emsp;&emsp;集训队成立于2013年，共40名现役队员，由机电与信息工程学院计算机系袁灏老师担任教练。集训队利用课余时间、周末和寒暑假进行训练，曾获得ACM山东省程序设计竞赛金奖3项、银奖6项、铜奖9项；
+                ACM-ICPC亚洲区域现场赛银奖2项、铜奖9项。
+            </p>
+        </div>
+        <div class="team-develop-history text-center">
+            <figure class="figure">
+                <img src="{% static 'img/teamDevelopHistory/2011.png' %}" class="figure-img img-fluid rounded"
+                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption text-right">2011年：小小实验室，几个志同道合的队友，不变的梦想。</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="{% static 'img/teamDevelopHistory/2013.png' %}" class="figure-img img-fluid rounded"
+                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption text-right">2013年：校队正式成立，规模将近20人，两位指导老师。</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="{% static 'img/teamDevelopHistory/2015.png' %}" class="figure-img img-fluid rounded"
+                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption text-right">2015年：人数超过30人，有系统的训练。</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="{% static 'img/teamDevelopHistory/2017.png' %}" class="figure-img img-fluid rounded"
+                     alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption text-right">2017年：协会人数过百，创新团队成立。</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="team-people">
+        <h2>队伍成员</h2>
+        <div class="team-classify">
+            <h4>现役队员</h4>
+            <div class="team-grade">
+                <span><b>2015级</b></span>
+                <p>洪椿祥 杨凡</p>
+            </div>
+            <div class="team-grade">
+                <span><b>2016级</b></span>
+                <p>包文瑞 陈兆宇 连理 姜兆慧 王金晖 张江瑜 张路鹏 赵舒啸 周弘邺 朱向阳</p>
+            </div>
+            <div class="team-grade">
+                <span><b>2017级</b></span>
+                <p>程丽云 刘嘉旭 秦逸然 隋佳璐 肖龙 邢超越 叶小伟 展超 赵铠阳 曾鹏武</p>
+            </div>
+        </div>
+        <div class="team-classify">
+            <h4>开发团队</h4>
+            <div class="team-grade">
+                <p>张业祥 聂小平 姚锐 秦海涛 张家豪 曹炜年</p>
+            </div>
+        </div>
+    </div>
+    <div class="join-info">
+        <figure class="figure" style="float: left;">
+            <img src="{% static 'img/qq.jpg' %}" class="figure-img img-fluid rounded"
+                 alt="A generic square placeholder image with rounded corners in a figure."
+                 style="width: 300px; height: 300px">
+            <figcaption class="figure-caption text-right">SDUWH2018ACM会员群</figcaption>
+        </figure>
+        <div>
+            <span><b>QQ群号:</b></span>
+            <p>801575240</p>
+        </div>
+    </div>
+{% endblock %}

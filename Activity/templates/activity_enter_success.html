@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    报名成功
+{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+    <div class="text-center">
+        <img src="{% static 'img/success.png' %}" class="rounded" alt="...">
+        <h1>报名成功</h1>
+        <h5><span id="time-change">3</span>秒后跳转</h5>
+    </div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+		window.onload = function(){
+			setTimeout(go, 3000);
+			setInterval(changeTime, 1000);
+		};
+
+		function changeTime() {
+		    let obj = document.getElementById('time-change');
+		    let _time = obj.innerHTML;
+		    obj.innerHTML = _time - 1;
+        }
+
+		function go(){
+			location.href="{% url 'activity' 1 %}";
+		}
+</script>
+{% endblock %}

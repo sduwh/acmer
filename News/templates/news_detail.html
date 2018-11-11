@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    动态详情
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
+    <style>
+        .news_time{
+            margin-right: 4%;
+        }
+        .news_detail > div{
+            margin: 20px 0 20px;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
+    <div class="news_detail">
+        <div class="news_title text-center">
+            <h1>{{ article.title }}</h1>
+        </div>
+        <div class="news_info text-center">
+            <span class="news_time">{{ article.create_time | date:'Y-m-d H:i:s'}}</span>
+            <span class="news_actor"><b>{{ article.actor }}</b></span>
+        </div>
+        <p class="news_content">{{ article.content | safe}}</p>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+    function goBack(){
+        history.back(-1);
+    }
+    </script>
+{% endblock %}

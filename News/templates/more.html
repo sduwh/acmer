@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    近期动态
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
+    <style>
+        #body-main {
+            margin-top: 60px;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <button type="button" class="btn btn-secondary" onclick="goBack()" style="margin-bottom: 5px;">Back</button>
+    <div class="d-block">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">{{ title }}</th>
+                <th class="text-right" scope="col">时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if article_list %}
+                {% for article in article_list %}
+                    <tr>
+                        <td><a href="{% url 'news_detail' article.id %}">{{ article.title }}</a></td>
+                        <td class="text-right">{{ article.create_time | date:"Y-m-d H:i:s" }}</td>
+                    </tr>
+
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-center">暂无数据</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% include 'newsController/news_pagination.html' %}
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        function goBack() {
+            history.back(-1);
+        }
+    </script>
+{% endblock %}

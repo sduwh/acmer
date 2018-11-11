@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    活动中心
+{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+    <!--　只展示正在报名和即将报名的活动 -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col" class="text-left">近期活动</th>
+            <th scope="col" class="text-right">报名开始时间</th>
+            <th scope="col" class="text-right">报名结束时间</th>
+            <th scope="col" class="text-right">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if game_list %}
+            {% for game in game_list %}
+                    <tr>
+                        <td class="text-left">{{ game.headline }}</td>
+                        <td class="text-right">{{ game.start_enter_time }}</td>
+                        <td class="text-right">{{ game.end_enter_time }}</td>
+                        <td class="text-right"><a href="{% url 'activity_detail' game.id %} ">进入报名</a></td>
+                    </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">暂无数据</td>
+            </tr>
+        {% endif %}
+
+
+        </tbody>
+    </table>
+    {% include 'activityController/activity_pagination.html' %}
+{% endblock %}

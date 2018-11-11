@@ -1,0 +1,34 @@
+<nav aria-label="Page navigation" style="text-align: center">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="{% url 'activity' 1 %}">首页</a></li>
+        {% if game_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{% url 'activity'  game_list.previous_page_number %}">上一页</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link"
+                   href="{% url 'activity'  1 %}">上一页</a>
+            </li>
+        {% endif %}
+        <li class="page-item">
+            <a class="page-link"
+               href="{% url 'activity'  game_list.number %}">{{ game_list.number }}</a>
+        </li>
+        {% if game_list.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{% url 'activity'  game_list.next_page_number %}">下一页</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link"
+                   href="{% url 'activity'  game_list.number %}">下一页</a>
+            </li>
+        {% endif %}
+        <li class="page-item">
+            <a class="page-link" href="{% url 'activity'  game_list.paginator.num_pages %}">尾页</a>
+        </li>
+    </ul>
+</nav>

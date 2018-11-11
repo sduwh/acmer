@@ -1,0 +1,8 @@
+.table td, .table th{
+    border-top: none;
+}
+
+td > a{
+    color: #6c757d;
+    text-decoration: none !important;
+}

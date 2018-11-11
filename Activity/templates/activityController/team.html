@@ -1,0 +1,169 @@
+<form action="{% url 'enter' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="0" name="game_type">
+    <input type="hidden" value="{{ game.id }}" name="game_id">
+    <div class="form-group">
+        <label for="teamName">队名</label>
+        {{ form.teamName }}
+        {% if  form.teamName.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.teamName.errors }}
+            </div>
+        {% endif %}
+
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputName1">队长</label>
+            {{ form.inputName1 }}
+            {% if  form.inputName1.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputName1.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail1">Email</label>
+            {{ form.inputEmail1 }}
+            {% if  form.inputEmail1.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputEmail1.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPhone1">电话</label>
+            {{ form.inputPhone1 }}
+            {% if  form.inputPhone1.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputPhone1.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputMajor1">专业</label>
+            {{ form.inputMajor1 }}
+            {% if  form.inputMajor1.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputMajor1.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputID1">学号</label>
+            {{ form.inputID1 }}
+            {% if  form.inputID1.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputID1.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputName2">队员1</label>
+            {{ form.inputName2 }}
+            {% if  form.inputName2.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputName2.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail2">Email</label>
+            {{ form.inputEmail2 }}
+            {% if  form.inputEmail2.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputEmail2.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPhone2">电话</label>
+            {{ form.inputPhone2 }}
+            {% if  form.inputPhone2.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputPhone2.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputMajor2">专业</label>
+            {{ form.inputMajor2 }}
+            {% if  form.inputMajor2.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputMajor2.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputID2">学号</label>
+            {{ form.inputID2 }}
+            {% if  form.inputID2.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputID2.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputName3">队员2</label>
+            {{ form.inputName3 }}
+            {% if  form.inputName3.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputName3.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail3">Email</label>
+            {{ form.inputEmail3 }}
+            {% if  form.inputEmail3.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputEmail3.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPhone3">电话</label>
+            {{ form.inputPhone3 }}
+            {% if  form.inputPhone3.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputPhone3.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputMajor3">专业</label>
+            {{ form.inputMajor3 }}
+            {% if  form.inputMajor3.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputMajor3.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputID3">学号</label>
+            {{ form.inputID3 }}
+            {% if  form.inputID3.errors %}
+                <div class="alert alert-danger form-control" role="alert">
+                    {{ form.inputID3.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="School">学校</label>
+        {{ form.School }}
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    <div style="height: 40px"></div>
+</form>

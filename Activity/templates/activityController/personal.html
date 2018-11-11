@@ -1,0 +1,56 @@
+<form action="{% url 'enter' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="1" name="game_type">
+    <input type="hidden" value="{{ game.id }}" name="game_id">
+    <div class="form-group">
+        <label for="formGroupName">姓名</label>
+        {{ form.inputName }}
+        {% if  form.inputName.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.inputName.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail">邮箱</label>
+        {{ form.inputEmail }}
+        {% if  form.inputEmail.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.inputEmail.errors }}
+            </div>
+        {% endif %}
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="formGroupPhone">电话</label>
+        {{ form.inputPhone }}
+        {% if  form.inputPhone.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.inputPhone.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="formGroupMajor">专业</label>
+        {{ form.inputMajor }}
+        {% if  form.inputMajor.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.inputMajor.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="formGroupID">学号</label>
+        {{ form.inputID }}
+        {% if  form.inputID.errors %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ form.inputID.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="FormControlSchool">学校</label>
+        {{ form.School }}
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+</form>

@@ -1,0 +1,9 @@
+.carousel-item > img{
+    max-width: 100%;
+    height:auto;
+}
+
+td > a{
+    color: #6c757d;
+    text-decoration: none !important;
+}

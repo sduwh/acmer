@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    报名详情
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/activity.css' %}">
+    <style>
+        .describe {
+            margin: 30px 0 30px;
+        }
+
+        .info > div {
+            margin: 20px 0 20px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="title">
+        <h1>山东大学（威海）第五届大学生程序设计竞赛</h1>
+    </div>
+    <div class="describe">
+        <p class="text-left">{{ game.describe }}</p>
+    </div>
+    <div class="info">
+        <div class="time-info">
+            <div class="game-time">
+                <b>活动时间：</b><span>{{ game.game_time }}</span>
+            </div>
+            <div class="enter-time">
+                <b>报名开始时间：</b> <span>{{ game.start_enter_time }}</span>
+                <b>报名结束时间：</b> <span>{{ game.end_enter_time }}</span>
+            </div>
+        </div>
+        <div class="location-info">
+            <b>活动地点：</b><span>{{ game.location }}</span>
+        </div>
+        <div class="actor-info">
+            <b>负责人：</b> {{ game.actor.username }}
+        </div>
+    </div>
+    <div>
+        {% if msg != '' %}
+            <div class="alert alert-danger form-control" role="alert">
+                {{ msg }}
+            </div>
+        {% endif %}
+        {% if game.game_type == '0' %}
+            {% include 'activityController/team.html' %}
+        {% else %}
+            {% include "activityController/personal.html" %}
+        {% endif %}
+    </div>
+    <div style="height: 40px"></div>
+{% endblock %}

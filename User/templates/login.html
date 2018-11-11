@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    登录
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+{% block main %}
+    <div class="logon-register-body">
+        <h1 class="text-center">登录</h1>
+        <form action="{% url 'user_login' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{ next }}" name="next">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <small class="form-text text-muted"><a href="{% url 'user_register' %}">还没有账号？先注册一个吧</a></small>
+            <small class="form-text text-muted">{{ msg }}</small>
+        </form>
+    </div>
+{% endblock %}

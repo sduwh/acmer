@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    历程
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/jquery.eeyellow.Timeline.css' %}">
+    <style>
+        .pull-left > img {
+            max-width: 213%;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="VivaTimeline">
+    <dl>
+    {% for history in history_list %}
+        {% if forloop.counter|divisibleby:2 %}
+            <dt>{{ history.date | date:"M Y" }}</dt>
+            <dd class="pos-left clearfix">
+                <div class="circ"></div>
+                <div class="time">{{ history.date | date:"M d" }}</div>
+                <div class="events">
+                    <div class="events-header">{{ history.game }}</div>
+                    <div class="events-body">
+                        <div class="row">
+                            <div class="col-md-6 pull-left">
+                                <img class="events-object img-responsive img-rounded"
+                                     src="{{ history.img_show.url }}"/>
+                            </div>
+                            <div class="events-desc">
+                                {{ history.achievement }}
+                            </div>
+                        </div>
+                        <div class="events-footer">
+                        </div>
+                    </div>
+                </div>
+            </dd>
+        {% else %}
+            <dt>{{ history.date | date:"M Y" }}</dt>
+            <dd class="pos-right clearfix">
+                <div class="circ"></div>
+                <div class="time">{{ history.date | date:"M d" }}</div>
+                <div class="events">
+                    <div class="events-header">{{ history.game }}</div>
+                    <div class="events-body">
+                        <div class="row">
+                            <div class="col-md-6 pull-left">
+                                <img class="events-object img-responsive img-rounded"
+                                     src="{{ history.img_show.url }}"/>
+                            </div>
+                            <div class="events-desc">
+                                {{ history.achievement }}
+                            </div>
+                        </div>
+                        <div class="events-footer">
+                        </div>
+                    </div>
+                </div>
+            </dd>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+{% block js %}
+    {#    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>#}
+    {#    <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>#}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+            });
+        });
+    </script>
+    <script src="{% static 'js/jquery.eeyellow.Timeline.js' %}"></script>
+{% endblock %}

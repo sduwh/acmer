@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    注册
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+{% block main %}
+    <div class="logon-register-body">
+        <h1 class="text-center">注册</h1>
+        <form action="{% url 'user_register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+                {% if  form.username.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.username.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password }}
+                {% if  form.password.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.password.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="password">Confirm Password</label>
+                {{ form.password1 }}
+                {% if  form.password1.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="email1">Email address</label>
+                {{ form.email }}
+                {% if  form.email.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="realName">Real Name</label>
+                {{ form.realName }}
+                {% if  form.realName.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.realName.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                {{ form.school }}
+                {% if  form.school.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.school.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <small class="form-text text-muted">We'll never share your profile with anyone else.
+            </small>
+            <small class="form-text text-muted">{{ msg }}</small>
+        </form>
+    </div>
+{% endblock %}
