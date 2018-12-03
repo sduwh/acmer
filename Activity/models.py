@@ -77,6 +77,7 @@ class Team(models.Model):
 
     class Meta:
         verbose_name = "队伍/个人"
+        verbose_name_plural = verbose_name
 
 
 class Game(models.Model):
@@ -162,3 +163,4 @@ class Game(models.Model):
 
     class Meta:
         verbose_name = "活动"
+        verbose_name_plural = verbose_name

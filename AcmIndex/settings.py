@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o+m25lwg8ha%jvc#5i1^zbw_*xt7%qc7-4xe#k(d2nbmp@sxu7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'acm.wh.sdu.edu.cn']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'acm.wh.sdu.edu.cn']
 
 # Application definition
 
@@ -85,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'acmIndex',
-        'USER': 'douer',
-        'PASSWORD': '979890yr!',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '3306',
     }
@@ -134,11 +134,11 @@ USE_TZ = False
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_RESTRICT_BY_USER = True
@@ -200,4 +200,11 @@ CKEDITOR_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'User.User'
-LOGIN_URL = "user_login"
+LOGIN_URL = "sso_login"
+
+SSO_CLIENTID = '94ab2805800c83ae1982'
+SSO_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
+SSO_CLIENTSECRET = 'cb02f562b7944baf135e796fa8472ae27d9da722'
+SSO_CALLBACK = 'http://localhost:8000/user/sso_auth'
+SSO_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token'
+SSO_USER_DATA = 'https://api.github.com/user?access_token='
