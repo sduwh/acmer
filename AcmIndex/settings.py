@@ -25,7 +25,7 @@ SECRET_KEY = 'o+m25lwg8ha%jvc#5i1^zbw_*xt7%qc7-4xe#k(d2nbmp@sxu7'
 # DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'acm.wh.sdu.edu.cn']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'acm.wh.sdu.edu.cn']
 
 # Application definition
 
@@ -200,4 +200,11 @@ CKEDITOR_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'User.User'
-LOGIN_URL = "user_login"
+LOGIN_URL = "sso_login"
+
+SSO_CLIENTID = '94ab2805800c83ae1982'
+SSO_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
+SSO_CLIENTSECRET = 'cb02f562b7944baf135e796fa8472ae27d9da722'
+SSO_CALLBACK = 'http://localhost:8000/user/sso_auth'
+SSO_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token'
+SSO_USER_DATA = 'https://api.github.com/user?access_token='

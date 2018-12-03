@@ -37,6 +37,7 @@ class News(models.Model):
 
     class Meta:
         verbose_name = '动态'
+        verbose_name_plural = verbose_name
 
 
 class NewsPhotos(models.Model):
@@ -77,3 +78,4 @@ class NewsPhotos(models.Model):
 
     class Meta:
         verbose_name = "轮播图"
+        verbose_name_plural = verbose_name

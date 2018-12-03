@@ -49,6 +49,7 @@ class TeamResource(resources.ModelResource):
     school = Field()
     phone = Field()
     major = Field()
+
     class Meta:
         model = Team
         fields = ('team_name', 'teacher')

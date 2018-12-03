@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
@@ -42,3 +43,32 @@ class History(models.Model):
 
     class Meta:
         verbose_name = "历程"
+        verbose_name_plural = verbose_name
+
+
+class TeamMember(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name='队员',
+                             related_name='team_member')
+
+    def __str__(self):
+        return self.user.__str__()
+
+    class Meta:
+        db_table = 'TeamMember'
+        verbose_name = "队员信息"
+        verbose_name_plural = verbose_name
+
+
+class GameRecord(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey('TeamMember', on_delete=models.DO_NOTHING, verbose_name='队员', related_name='game_record')
+    game = models.CharField(max_length=125, default='', verbose_name='比赛名称')
+    result = models.CharField(max_length=125, default='', verbose_name='比赛结果')
+    game_time = models.DateTimeField(default=None, verbose_name='比赛时间')
+    create_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'GameRecord'
+        verbose_name = "比赛记录"
+        verbose_name_plural = verbose_name

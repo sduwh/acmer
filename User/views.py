@@ -1,11 +1,90 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+from .until import encode_url_data, get_referer_url
+from django.conf import settings
 from .models import School, User
 from .forms import CreateUserForm
-
+from django.contrib.sessions.models import Session
+import requests
+import json
 
 # Create your views here.
+
+SSO_CLIENTID = settings.SSO_CLIENTID
+SSO_CLIENTSECRET = settings.SSO_CLIENTSECRET
+SSO_CALLBACK = settings.SSO_CALLBACK
+SSO_ACCESS_TOKEN = settings.SSO_ACCESS_TOKEN
+SSO_AUTHORIZE_URL = settings.SSO_AUTHORIZE_URL
+SSO_USER_DATA = settings.SSO_USER_DATA
+
+
+def sso_login(request):
+    """
+    第一步: 请求sso第三方登录
+    :param request: django request
+    :return: 跳转
+    """
+    data = {
+        'client_id': SSO_CLIENTID,
+        'client_secret': SSO_CLIENTSECRET,
+        'redirect_uri': SSO_CALLBACK,
+        'state': get_referer_url(request=request),
+    }
+
+    sso_auth_url = '%s?%s' % (SSO_AUTHORIZE_URL, encode_url_data(data))
+    return HttpResponseRedirect(sso_auth_url)
+
+
+def sso_auth(request):
+    """
+    第二步 sso 认证处理
+    :param request:
+    :return:
+    """
+    template_html = 'login.html'
+    # 如果申请登陆页面成功后，就会返回code和state
+    if 'code' not in request.GET:
+        return render(request, template_html)
+
+    code = request.GET.get('code')
+    # 将得到的code，通过下面的url请求得到access_token
+    access_token_url = SSO_ACCESS_TOKEN
+    data = {
+        'grant_type': 'authorization_code',
+        'client_id': SSO_CLIENTID,
+        'client_secret': SSO_CLIENTSECRET,
+        'code': code,
+        'redirect_uri': SSO_CALLBACK,
+    }
+
+    # 设置请求返回的数据类型
+    headers = {'Accept': 'application/json'}
+    response = requests.get(access_token_url, data=data, headers=headers)
+    result = json.loads(response.content)
+    # 获取access_token
+    access_token = result['access_token']
+    url = SSO_USER_DATA + access_token
+    response = requests.get(url)
+    # 获取用户数据
+    data = json.loads(response.content)
+    username = data['name']
+    password = '111111'
+    email = 'acm@acm.com'
+
+    # 如果不存在username，则创建
+    if User.objects.filter(username=username).count() == 0:
+        User.objects.create_user(username=username,
+                                 password=password,
+                                 email=email).save()
+
+    # 登陆认证
+    sso_user = authenticate(username=username,
+                            password=password)
+    login(request, sso_user)
+    response = HttpResponseRedirect(request.GET['state'])
+    response.set_cookie('token', access_token)
+    return response
 
 
 @login_required
@@ -18,7 +97,6 @@ def user(request):
     return render(request, 'user.html')
 
 
-@login_required
 def user_logout(request):
     """
     用户注销
@@ -26,7 +104,9 @@ def user_logout(request):
     :return:  html
     """
     logout(request)
-    return redirect('index')
+    response = redirect('index')
+    response.delete_cookie('token')
+    return response
 
 
 def user_login(request):
@@ -48,17 +128,17 @@ def user_login(request):
             return render(request, 'login.html', context=context)
         elif request.method == "POST":
             # 获取跳转链接，登录完成返回上一页
-            next = request.POST.get('next')
+            _next = request.POST.get('next')
             username = request.POST.get('username')
             password = request.POST.get('password')
             # 如果账号与密码匹配，登录成功，否则返回error messages
             if authenticate(username=username, password=password):
-                user = User.objects.filter(username=username).first()
+                _user = User.objects.filter(username=username).first()
                 # 使用自定义的验证 backends
-                login(request, user, backend='User.backends.UsernameBackends')
-                if next == "None":
+                login(request, _user, backend='User.backends.UsernameBackends')
+                if _next == "None":
                     return redirect('index')
-                return redirect(next)
+                return redirect(_next)
 
             else:
                 context = {
