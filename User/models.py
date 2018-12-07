@@ -22,22 +22,23 @@ class School(models.Model):
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, password,  email):
+    def create_user(self, username, password, real_name, email):
         """ 创建，并保存User的username, password, real_name,email"""
-        if not username or not password or not email:
+        if not username or not password or not email or not real_name:
             raise ValueError('User must have username or password or real_name or email')
 
         user = self.model(
             username=username,
+            real_name=real_name,
             email=self.normalize_email(email)
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, email):
+    def create_superuser(self, username, password, real_name, email):
         """ 创建，并保存SuperUser的username, password, real_name,email"""
-        user = self.create_user(username, password, email)
+        user = self.create_user(username, password, real_name, email)
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)

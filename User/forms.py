@@ -15,7 +15,7 @@ class CreateUserForm(forms.Form):
     password1 = forms.CharField(label="password1",
                                 widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                   'placeholder': 'password'}))
-    realName = forms.IntegerField(label="realName",
+    realName = forms.CharField(label="realName",
                                   widget=forms.TextInput(attrs={'class': 'form-control',
                                                                 'placeholder': 'Real Name'}))
 

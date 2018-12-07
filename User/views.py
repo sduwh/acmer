@@ -136,7 +136,7 @@ def user_login(request):
                 _user = User.objects.filter(username=username).first()
                 # 使用自定义的验证 backends
                 login(request, _user, backend='User.backends.UsernameBackends')
-                if _next == "None":
+                if _next == "None" or _next == '':
                     return redirect('index')
                 return redirect(_next)
 
@@ -203,12 +203,12 @@ def register(request):
                 real_name = request.POST.get('realName')
                 # 创建用户
                 try:
-                    user = User.objects.create_user(
-                        username=username,
-                        email=email,
-                        real_name=real_name,
-                        password=password,
-                    )
+                    _user = User.objects.create_user(
+                            username=username,
+                            email=email,
+                            real_name=real_name,
+                            password=password,
+                        )
                 except Exception:
                     context = {
                         'msg': '注册错误',
@@ -216,8 +216,8 @@ def register(request):
                     }
                     return render(request, 'register.html', context=context)
                 else:
-                    user.school = School.objects.filter(school_name=school).first()
-                    user.save()
+                    _user.school = School.objects.filter(school_name=school).first()
+                    _user.save()
                     return redirect('user_login')
         else:
             context = {
