@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    码池
+{% endblock %}
+
+{% block css %}
+
+    <style>
+        .pool-title {
+            display: flex;
+        }
+
+        .pool-title a {
+            margin-left: 50%;
+        }
+
+        td img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="pool-title">
+        <h3>我的码池</h3>
+        <div>
+            <a href="{% url 'create_code' %}" class="btn btn-primary btn-sm">创建</a>
+        </div>
+    </div>
+
+    <div class="pool-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">标题</th>
+                <th scope="col" class="text-right">公开</th>
+                <th scope="col" class="text-right">创建时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for code in code_list %}
+                <tr>
+                    <td><a href="{% url 'code_detail' code.id %}">{{ code.title }}</a></td>
+                    {% if code.is_share %}
+                        <td class="text-right"><img src="{% static 'img/选中.png' %}"></td>
+                    {% else %}
+                        <td class="text-right"><img src="{% static 'img/关闭.png' %}"></td>
+                    {% endif %}
+
+                    <td class="text-right">{{ code.create_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation" style="text-align: center">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="{% url 'code_pool' 1 %}">首页</a></li>
+            {% if code_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'code_pool'  code_list.previous_page_number %}">上一页</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       href="{% url 'code_pool'  1 %}">上一页</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{% url 'code_pool'  code_list.number %}">{{ code_list.number }}</a>
+            </li>
+            {% if code_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'code_pool'  code_list.next_page_number %}">下一页</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       href="{% url 'code_pool'  code_list.number %}">下一页</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="{% url 'code_pool'  code_list.paginator.num_pages %}">尾页</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

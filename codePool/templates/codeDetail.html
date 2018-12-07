@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    代码详情
+{% endblock %}
+
+{% block css %}
+    <style>
+        .code-title {
+            display: flex;
+        }
+
+        .code-title a {
+            margin-left: 50%;
+            margin-right: 10px;
+        }
+
+        .code-body {
+            margin-top: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 20px;
+            background-color: #D3D3D3;
+            border-radius: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="code-title">
+        <h3 class="">代码详情-{{ code.title }}</h3>
+        {% if is_author %}
+            <div>
+                <h3>
+                    {% if code.is_share %}
+                        [公开]
+                    {% else %}
+                        [私密]
+                    {% endif %}
+                </h3>
+            </div>
+            <div>
+                <a href="{% url 'change_code' code.id %}" class="btn btn-primary btn-sm">修改</a>
+            </div>
+            <div>
+                <a href="{% url 'del_code' code.id %}" class="btn btn-danger btn-sm">删除</a>
+            </div>
+            <div>
+                <a href="{% url 'code_pool' 1 %}" class="btn btn-light btn-sm">返回</a>
+            </div>
+        {% endif %}
+    </div>
+    <div style="margin-top: 20px;">
+        作者：{{ code.user.username }}
+    </div>
+    <div class="code-body">
+        <pre>{{ code.code }}</pre>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

@@ -10,9 +10,6 @@ from User.models import School as all_school
 from Activity.untils.create_enter import create_person_enter, create_team_enter
 
 
-# Create your views here.
-
-
 def activity(request, page=1):
     """
     活动首页
