@@ -30,6 +30,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'activity' 1 %}">活动</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'code_pool' 1 %}">码池</a>
+            </li>
             {#            <li class="nav-item active">#}
             {#                <a class="nav-link" href="{% url 'user_center' %}">个人中心</a>#}
             {#            </li>#}
@@ -45,11 +48,15 @@
         </ul>
         <div class="form-inline my-2 my-lg-0">
             {% if user.is_authenticated %}
-                <a href="#" class="btn btn-outline-success my-2 mr-sm-2" role="button" aria-pressed="true">{{ user.username }}</a>
-                <a href="{% url 'user_logout' %}" class="btn btn-outline-success my-2 mr-sm-0" role="button" aria-pressed="true">logout</a>
+                <a href="#" class="btn btn-outline-success my-2 mr-sm-2" role="button"
+                   aria-pressed="true">{{ user.username }}</a>
+                <a href="{% url 'user_logout' %}" class="btn btn-outline-success my-2 mr-sm-0" role="button"
+                   aria-pressed="true">logout</a>
             {% else %}
-                <a href="{% url 'user_login' %}" class="btn btn-outline-success my-2 mr-sm-2" role="button" aria-pressed="true">Login</a>
-                <a href="{% url 'user_register' %}" class="btn btn-outline-success my-2 mr-sm-0" role="button" aria-pressed="true">Register</a>
+                <a href="{% url 'user_login' %}" class="btn btn-outline-success my-2 mr-sm-2" role="button"
+                   aria-pressed="true">Login</a>
+                <a href="{% url 'user_register' %}" class="btn btn-outline-success my-2 mr-sm-0" role="button"
+                   aria-pressed="true">Register</a>
             {% endif %}
         </div>
     </div>

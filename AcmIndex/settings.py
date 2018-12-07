@@ -22,8 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o+m25lwg8ha%jvc#5i1^zbw_*xt7%qc7-4xe#k(d2nbmp@sxu7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = True
+# DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'acm.wh.sdu.edu.cn']
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'News',  # 新闻模块
     'Activity',  # 活动模块
     'Team',  # acm团队模块
+    'codePool',     # 码池
 ]
 
 MIDDLEWARE = [
@@ -85,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'acmIndex',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'douer',
+        'PASSWORD': '979890yr!',
         'HOST': '',
         'PORT': '3306',
     }
@@ -134,11 +135,11 @@ USE_TZ = False
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_RESTRICT_BY_USER = True
@@ -188,7 +189,7 @@ CKEDITOR_CONFIGS = {
                 'autoembed',
                 'embedsemantic',
                 'autogrow',
-                # 'devtools',
+                'devtools',
                 'widget',
                 'lineutils',
                 'clipboard',
@@ -200,8 +201,8 @@ CKEDITOR_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'User.User'
-LOGIN_URL = "sso_login"
-
+# LOGIN_URL = "sso_login"
+LOGIN_URL = 'user_login'
 SSO_CLIENTID = '94ab2805800c83ae1982'
 SSO_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 SSO_CLIENTSECRET = 'cb02f562b7944baf135e796fa8472ae27d9da722'
