@@ -9,7 +9,7 @@ class CreateUserForm(forms.Form):
     email = forms.EmailField(label='email',
                              widget=forms.TextInput(attrs={'class': 'form-control',
                                                            'placeholder': 'Email'}))
-    password = forms.IntegerField(label="password",
+    password = forms.CharField(label="password",
                                   widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                                     'placeholder': 'password'}))
     password1 = forms.CharField(label="password1",
