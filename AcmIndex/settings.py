@@ -86,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'acmIndex',
-        'USER': 'douer',
-        'PASSWORD': '979890yr!',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '3306',
     }
