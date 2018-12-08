@@ -1,8 +1,90 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block title %}
-用户中心
+    用户中心
 {% endblock %}
+
+{% block css %}
+    <style>
+        .user-info {
+            margin-top: 50px;
+        }
+
+        .user-info-item {
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        .user-info-title {
+            width: 300px;
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
-user_center
+    <div class="user-info">
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>姓名</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.real_name }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>账号</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.username }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>电子邮箱</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.email }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>学校</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.school.school_name }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>学号</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.student_id | default:'' }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>专业</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.major }}</span>
+            </div>
+        </div>
+        <div class="user-info-item">
+            <div class="user-info-title">
+                <h5>年级</h5>
+            </div>
+            <div class="user-info-detail">
+                <span>{{ request.user.grade | default:'' }} 级</span>
+            </div>
+        </div>
+        <div class="inline-group float-right">
+            <a class="btn btn-primary" href="{% url 'user_info_change' %}">编辑</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
 {% endblock %}

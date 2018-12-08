@@ -1,11 +1,10 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-from .until import encode_url_data, get_referer_url
+from .until import encode_url_data, get_referer_url, user_info_to_dict
 from django.conf import settings
 from .models import School, User
-from .forms import CreateUserForm
-from django.contrib.sessions.models import Session
+from .forms import CreateUserForm, UserInfoChange
 import requests
 import json
 
@@ -17,6 +16,50 @@ SSO_CALLBACK = settings.SSO_CALLBACK
 SSO_ACCESS_TOKEN = settings.SSO_ACCESS_TOKEN
 SSO_AUTHORIZE_URL = settings.SSO_AUTHORIZE_URL
 SSO_USER_DATA = settings.SSO_USER_DATA
+
+
+@login_required
+def user(request):
+    """
+    返回用户个人中心页面
+    :param request: django request
+    :return: html
+    """
+    return render(request, 'user.html')
+
+
+@login_required
+def user_info_change(request):
+    """
+    修改个人信息
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        schools = [(s.school_name, s.school_name) for s in School.objects.all()]
+        _data = user_info_to_dict(request.user)
+        user_info_form = UserInfoChange(data=_data)
+        user_info_form.fields['school'].widget.choices = schools
+        context = {'form': user_info_form}
+        return render(request, 'userInfoChange.html', context=context)
+    elif request.method == "POST":
+        user_info_form = UserInfoChange(request.POST)
+        schools = [(s.school_name, s.school_name) for s in School.objects.all()]
+        user_info_form.fields['school'].widget.choices = schools
+        if user_info_form.is_valid():
+            _user = request.user
+            _user.real_name = user_info_form.cleaned_data['real_name']
+            _user.email = user_info_form.cleaned_data['email']
+            _user.student_id = user_info_form.cleaned_data['student_id']
+            _user.major = user_info_form.cleaned_data['major']
+            _user.grade = user_info_form.cleaned_data['grade']
+            _user.school = School.objects.filter(school_name=user_info_form.cleaned_data['school']).first()
+            _user.save()
+            return redirect('user_center')
+        else:
+            context = {'form': user_info_form}
+            return render(request, 'userInfoChange.html', context=context)
+    return render(request, 'user.html')
 
 
 def sso_login(request):
@@ -85,16 +128,6 @@ def sso_auth(request):
     response = HttpResponseRedirect(request.GET['state'])
     response.set_cookie('token', access_token)
     return response
-
-
-@login_required
-def user(request):
-    """
-    返回用户个人中心页面
-    :param request: django request
-    :return: html
-    """
-    return render(request, 'user.html')
 
 
 def user_logout(request):

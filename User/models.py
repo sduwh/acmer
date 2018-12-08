@@ -59,7 +59,7 @@ class User(AbstractBaseUser):
 
     student_id = models.IntegerField(
         blank=True,
-        null=True
+        null=True,
     )
     school = models.ForeignKey(
         'School',
@@ -69,7 +69,7 @@ class User(AbstractBaseUser):
         verbose_name='学校'
     )
     major = models.CharField(max_length=125, default='', blank=True, null=True, verbose_name='专业')
-    grade = models.IntegerField(blank=True, null=True, default=datetime.datetime.now().year, verbose_name='年级')
+    grade = models.IntegerField(blank=True, null=True, verbose_name='年级')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
