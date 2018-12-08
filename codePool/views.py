@@ -5,6 +5,22 @@ from .models import Code
 
 
 @login_required
+def code_pool(request, page=1):
+    my_codes = Code.objects.filter(is_share=True).order_by('-create_time').all()
+    paginator = Paginator(my_codes, 10)
+    try:
+        code_list = paginator.page(int(page))
+    except PageNotAnInteger:
+        code_list = paginator.page(1)
+    except EmptyPage:
+        code_list = paginator.page(paginator.num_pages)
+    context = {
+        'code_list': code_list
+    }
+    return render(request, 'codePoolIndex.html', context=context)
+
+
+@login_required
 def my_code_pool(request, page=1):
     """
     我的码池
