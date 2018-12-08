@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    修改信息
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+{% block main %}
+    <div class="change-user-info-body">
+        <h1>修改信息</h1>
+        <form action="{% url 'user_info_change' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="realName">姓名</label>
+                {{ form.real_name }}
+                {% if  form.real_name.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.real_name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="email1">邮箱</label>
+                {{ form.email }}
+                {% if  form.email.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                {{ form.school }}
+                {% if  form.school.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.school.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="studentId">学号</label>
+                {{ form.student_id }}
+                {% if  form.student_id.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.student_id.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="major">专业</label>
+                {{ form.major }}
+                {% if  form.major.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.major.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="grade">年级</label>
+                {{ form.grade }}
+                {% if  form.grade.errors %}
+                    <div class="alert alert-danger form-control" role="alert">
+                        {{ form.grade.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">保存</button>
+            <small class="form-text text-muted">We'll never share your profile with anyone else.
+            </small>
+            <small class="form-text text-muted">{{ msg }}</small>
+        </form>
+    </div>
+{% endblock %}
