@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'News',  # 新闻模块
     'Activity',  # 活动模块
     'Team',  # acm团队模块
-    'codePool',     # 码池
+    'codePool',
 ]
 
 MIDDLEWARE = [
