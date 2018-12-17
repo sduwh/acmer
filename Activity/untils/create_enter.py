@@ -115,7 +115,6 @@ def create_person_enter(data, game_id):
             print("!ERROR % s" % e)
             re['msg'] = '服务器错误'
             return re
-
         _re = create_person_of_team(user_name=data['inputName'],
                                     email=data['inputEmail'],
                                     phone=data['inputPhone'],

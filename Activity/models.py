@@ -14,13 +14,13 @@ class Person(models.Model):
         default="",
         null=False
     )
-    student_id = models.IntegerField()
+    student_id = models.BigIntegerField()
     email = models.EmailField(
         unique=False,
         verbose_name='email asdaddress',
         max_length=256
     )
-    phone = models.IntegerField()
+    phone = models.BigIntegerField()
     major = models.CharField(
         max_length=56,
         default="",

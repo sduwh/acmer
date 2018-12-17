@@ -57,7 +57,7 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,)
 
-    student_id = models.IntegerField(
+    student_id = models.BigIntegerField(
         blank=True,
         null=True,
     )
