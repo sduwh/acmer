@@ -11,7 +11,7 @@ run.bat
 *.so
 .idea/
 .vscode/
-
+c
 # Distribution / packaging
 .Python
 build/
@@ -109,3 +109,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+.DS_Store

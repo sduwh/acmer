@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .until import encode_url_data, get_referer_url, user_info_to_dict
 from django.conf import settings
 from .models import School, User
-from .forms import CreateUserForm, UserInfoChange
+from .forms import CreateUserForm, UserInfoChange, UserLoginForm
 import requests
 import json
 
@@ -154,7 +154,9 @@ def user_login(request):
     else:
         # 限制登录为POST请求，若为GET,返回登录界面
         if request.method == "GET":
+            user_login_form = UserLoginForm()
             context = {
+                'form': user_login_form,
                 'msg': '',
                 'next': request.GET.get('next')
             }
@@ -165,18 +167,21 @@ def user_login(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             # 如果账号与密码匹配，登录成功，否则返回error messages
-            if authenticate(username=username, password=password):
-                _user = User.objects.filter(username=username).first()
-                # 使用自定义的验证 backends
-                login(request, _user, backend='User.backends.UsernameBackends')
-                if _next == "None" or _next == '':
-                    return redirect('index')
-                return redirect(_next)
+            user_login_form = UserLoginForm(request.POST)
+            if user_login_form.is_valid():
+                if authenticate(username=username, password=password):
+                    _user = User.objects.filter(username=username).first()
+                    # 使用自定义的验证 backends
+                    login(request, _user, backend='User.backends.UsernameBackends')
+                    if _next == "None" or _next == '':
+                        return redirect('index')
+                    return redirect(_next)
 
+                else:
+                    context = {'form': user_login_form, 'msg': '用户不存在或密码错误'}
+                    return render(request, 'login.html', context=context)
             else:
-                context = {
-                    'msg': '用户不存在或密码错误'
-                }
+                context = {'form': user_login_form, 'msg': ''}
                 return render(request, 'login.html', context=context)
         else:
             return redirect('index')
